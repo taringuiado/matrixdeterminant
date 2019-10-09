@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <math.h>
 #define MAX 20
+//Estudiante Jose Angel Diaz
  
 void mostrar_matriz(int matriz[][MAX], int f,int c);
 int determinante(int matriz[][MAX], int orden);
-int cofactor(int matriz[][MAX], int orden, int fila, int columna);
+int cofactor(int matriz[][MAX], int orden, int f, int c);
 void traspuesta(int matriz[][MAX],int c, int f);
  
 int main()
@@ -16,7 +17,8 @@ int main()
    scanf("%d",&f);
    printf("Columnas: ");
    scanf("%d",&c);
-   while (f < 0 || f > MAX || c < 0 || c > MAX) {
+   
+   while (f < 0 || f > MAX || c < 0 || c > MAX) { //Limitando al usuario
    	printf("Salio de los parametros establecidos\nIngrese nuevamente el orden de la matriz:\nFilas: ");
     scanf("%d",&f);
    printf("Columnas: ");
@@ -31,18 +33,21 @@ int main()
       }
    }
  
-   printf("\nMostrando la matriz ingresada:\n");
-   mostrar_matriz(matriz, f,c);
-   if (f=c) {
+   printf("\Matriz ingresada:\n");
+   mostrar_matriz(matriz, f,c); 
+   
+   if (f==c) {
    orden=f;
-   printf("\nEl determinante es: %d\n", determinante(matriz, orden));
-   traspuesta(matriz,f,c);
+   printf("\nEl determinante es: %d\n", determinante(matriz, orden));//Retortando el determinante 
+   traspuesta(matriz,f,c); //Funcion traspuesta 
    } else {
-   printf ("La matriz no es cuadrar por lo tanto no se puede calcular el determinanate\n");
-   traspuesta(matriz,f,c);
+   printf ("\nLa matriz no es cuadrar por lo tanto no se puede calcular el determinanate\n\n");
+   traspuesta(matriz,f,c); //Funcion traspuesta 
    }
+   
    getchar();
    getchar();
+   
    return 0;
 }
  
@@ -58,20 +63,20 @@ void mostrar_matriz(int matriz[][MAX], int f,int c)
       printf("\n");
    }
 }
+
 void traspuesta(int matriz[][MAX],int f, int c)
 {
 	int i, j;
 	printf("La traspuesta es de orden (%d,%d)\n",c,f);
-	for (i=0; i < f; i++) {
-		for (j=0; j < c; j++){
+	for (i=0; i < c; i++) {
+		for (j=0; j < f; j++){
 			printf("\t%d",matriz[j][i]);
 		}
 		printf("\n");
 	}
 }
  
- 
-int determinante(int matriz[][MAX], int orden)
+int determinante(int matriz[][MAX], int orden) //determinante 
 {
    int det = 0.0, j;
    
@@ -83,11 +88,11 @@ int determinante(int matriz[][MAX], int orden)
       }
    }
    
-   return det;
+   return det; //retorna determinante tipo entero
 }
  
  
-int cofactor(int matriz[][MAX], int orden, int fila, int columna)
+int cofactor(int matriz[][MAX], int orden, int f, int c)
 {
    int submatriz[MAX][MAX];
    int n = orden - 1;
@@ -97,7 +102,7 @@ int cofactor(int matriz[][MAX], int orden, int fila, int columna)
    int y = 0;
    for (i = 0; i < orden; i++) {
       for (j = 0; j < orden; j++) {
-         if (i != fila && j != columna) {
+         if (i != f && j != c) {
             submatriz[x][y] = matriz[i][j];
             y++;
             if (y >= n) {
@@ -108,5 +113,5 @@ int cofactor(int matriz[][MAX], int orden, int fila, int columna)
       }
    }
    
-   return pow(-1.0, fila + columna) * determinante(submatriz, n);
+   return pow(-1.0, f + c) * determinante(submatriz, n);//retorna cofactor para ingresarlo a determinante
 }
