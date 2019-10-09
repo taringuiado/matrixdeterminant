@@ -33,7 +33,7 @@ int main()
       }
    }
  
-   printf("\Matriz ingresada:\n");
+   printf("\nMatriz ingresada:\n");
    mostrar_matriz(matriz, f,c); 
    
    if (f==c) {
